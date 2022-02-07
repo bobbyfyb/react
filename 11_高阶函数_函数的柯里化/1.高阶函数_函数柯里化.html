@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="test"></div>
+    <script src="../js/react.development.js" crossorigin></script>
+    <!-- 引入react-dom 用于支持react操作DOM -->
+    <script src="../js/react-dom.development.js" crossorigin></script>
+    <!-- 引入babel 用于将jsx转化为js -->
+    <script src="../js/babel.min.js" crossorigin></script>
+    <!-- 引入prop-types. 用于对组件标签属性进行限制 -->
+    <script type="text/babel">
+
+        //创建组件
+        class Login extends React.Component{
+            //初始化状态
+            state = {
+                username: '',
+                password: '',
+            }
+
+            render(){
+                return(
+                    <form action="http://www.atguigu.com" onSubmit={this.handleSubmit}>
+                       用户名： <input onChange={this.saveFormData("username")} type="text" name="username" />
+                       密码： <input onChange={this.saveFormData("password")} type="password" name="password" />
+                       <button>登录</button>
+                    </form>
+                )
+            }
+
+            //保存用户名到状态中
+            // saveUsername = (event) => this.setState({username: event.target.value})
+            //保存密码到状态中
+            // savePassword = (event) => this.setState({password: event.target.value})
+            //保存表单数据到状态中
+            saveFormData =(dataType) => {
+                return (event)=>{
+                    this.setState({[dataType]:event.target.value})
+                    console.log(dataType, event.target.value)
+                }
+            }
+            /* 
+                高阶函数：如果一个函数符合下面两个规范中的任何一个，那该函数就是高阶函数。
+                    1. 若A函数，接受的参数是一个函数， 那么A函数就可以被称之为高阶函数。
+                    2. 若A函数， 调用的返回值依然是一个函数，那么A函数就可以称之为高阶函数。
+                常见的高阶函数：Promise, setTimeOut, arr.map, arr.filter ...
+
+                函数的柯里化：通过函数调用后继续返回函数的方式，实现多次接收参数最后统一处理的函数编码形式。
+             */
+
+            handleSubmit=(event)=>{
+                event.preventDefault() //阻止表单提交
+                // const{username, password} = this
+                // alert(`你输入的用户名是${username.value}, 密码是${password.value}`)
+
+                const {username, password} = this.state
+                alert(`你输入的用户名是${username}, 密码是${password}`)
+                
+            }
+        }
+
+        ReactDOM.render(<Login />, document.getElementById('test'))
+    </script>
+</body>
+</html>
