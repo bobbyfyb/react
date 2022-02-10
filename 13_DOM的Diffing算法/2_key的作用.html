@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="test"></div>
+    <!-- 引入react核心库 -->
+    <script src="../js/17.0/react.development17.0.js"></script>
+    <!-- 引入react-dom 用于支持react操作DOM -->
+    <script src="../js/17.0/react-dom.development17.0.js"></script>
+    <!-- 引入babel 用于将jsx转化为js -->
+    <script src="../js/babel.min.js"></script>
+    <script type="text/babel">
+
+        class Person extends React.Component{
+            /* 
+                开发中如何选择key?:
+                    1. 最好使用每条数据的唯一标识作为key，比如id, 手机号, 身份证号, 学号等唯一值。
+                    2. 如果确定只是简单的展示数据，用index也是可以的。 
+
+             */
+            state = {
+                persons:[
+                    {id:1, name:'小张', age:18},
+                    {id:2, name:'小李', age:19},
+                ]
+            }
+            render(){
+                return (
+                    <div>
+                    <h2>展示人员信息</h2>
+                    <button onClick={this.add}>添加一个小王</button>
+                    <h3>使用数组索引值(index)作为key</h3>
+                        <ul>
+                        {
+                            this.state.persons.map((personObj, index)=>{
+                                return <li key={index}>{personObj.name}---{personObj.age} <input type="text"/></li>
+                            })
+                        }
+                        </ul>
+                        <hr/>
+                        <hr/>
+                        <h3>使用id作为key</h3>
+                        <ul>
+                        {
+                            this.state.persons.map((personObj)=>{
+                                return <li key={personObj.id}>{personObj.name}---{personObj.age} <input type="text"/></li>
+                            })
+                        }
+                        </ul>
+                    </div>
+                )
+            }
+
+            add = ()=>{
+                const {persons} = this.state
+                const p = {id:persons.length+1, name:'小王', age:20} 
+                this.setState({persons:[p, ...persons]})
+            }
+        }
+
+        ReactDOM.render(<Person />, document.getElementById('test'))
+
+    </script>
+</body>
+</html>
