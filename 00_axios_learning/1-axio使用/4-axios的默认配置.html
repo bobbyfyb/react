@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h2 class="page-header">基本使用</h2>
+        <button class="btn btn-primary">发送GET请求</button>
+        <button class="btn btn-warning">发送POST请求</button>
+        <button class="btn btn-success">发送PUT请求</button>
+        <button class="btn btn-danger">发送DELETE请求</button>
+    </div>
+
+    <script>
+        //获取按钮
+        const btns = document.querySelectorAll('button')
+
+        //默认配置
+        // 设置默认的请求类型为get
+        axios.defaults.method = 'GET';
+        // 设置baseURL
+        axios.defaults.baseURL='http://localhost:3000'
+        // 设置默认请求参数
+        axios.defaults.params = {id:100}
+        // 设置默认超时时间
+        axios.defaults.timeout=3000
+        
+        btns[0].onclick = function(){
+            axios({
+                url:'/posts'
+            }).then((result) => {
+               console.log(result) 
+            }).catch((err) => {
+                
+            });
+        }
+
+
+    </script>
+</body>
+</html>
