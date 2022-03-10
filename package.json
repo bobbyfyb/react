@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "antd": "^4.19.1",
     "pubsub-js": "^1.9.4"
   }
 }
