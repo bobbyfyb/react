@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { increment, decrement, incrementAsync } from '../../redux/actions/count'
+import { createDecrementAction, createIncrementAction, createIncrementAsyncAction } from '../../redux/actions/count'
 // 引入connect用于连接UI组件与redux
 import { connect } from 'react-redux'
 
@@ -57,8 +57,14 @@ export default connect(
   }),
   // mapDispatchToProps的精简写法
   {
-    increment,
-    decrement,
-    incrementAsync
+    increment: createIncrementAction,
+    decrement: createDecrementAction,
+    incrementAsync: createIncrementAsyncAction,
   }
+  // mapDispatchToProps的一般写法
+  /*     dispatch => ({
+          increment: data => dispatch(createIncrementAction(data)),
+          decrement: data => dispatch(createDecrementAction(data)),
+          incrementAsync: (data, time) => dispatch(createIncrementAsyncAction(data, time))
+      }) */
 )(Count)
